@@ -2,8 +2,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyLinkedList<T> implements ListInterface<T> {
-	// dummy head
+public class MyLinkedList<T extends Comparable<T>> implements ListInterface<T> {
 	Node<T> head;
 	int numItems;
 
@@ -11,23 +10,47 @@ public class MyLinkedList<T> implements ListInterface<T> {
 		head = new Node<T>(null);
 	}
 
-    /**
-     * {@code Iterable<T>}를 구현하여 iterator() 메소드를 제공하는 클래스의 인스턴스는
-     * 다음과 같은 자바 for-each 문법의 혜택을 볼 수 있다.
-     * 
-     * <pre>
-     *  for (T item: iterable) {
-     *  	item.someMethod();
-     *  }
-     * </pre>
-     * 
-     * @see PrintCmd#apply(MovieDB)
-     * @see SearchCmd#apply(MovieDB)
-     * @see java.lang.Iterable#iterator()
-     */
-    public final Iterator<T> iterator() {
-    	return new MyLinkedListIterator<T>(this);
-    }
+	public final Iterator<T> iterator() {
+		return new MyLinkedListIterator<T>(this);
+	}
+
+	public void insertionSort(T item) {
+		if (this.isEmpty()) {
+			this.add(item);
+			return;
+		}
+
+		Node<T> current = this.head.getNext();
+		Node<T> prev = this.head;
+
+		while (current != null) {
+			T currentItem = current.getItem();
+
+			if (currentItem.equals(item)) {
+				return;
+			}
+
+			if (currentItem.compareTo(item) > 0) {
+				break;
+			}
+
+			prev = current;
+			current = current.getNext();
+		}
+
+		prev.insertNext(item);
+		numItems++;
+	}
+
+	public T find(T item) {
+		if (this.isEmpty()) { return null; }
+
+		for(T temp: this){
+			if(temp.equals(item)) { return temp; }
+		}
+
+		return null;
+	}
 
 	@Override
 	public boolean isEmpty() {
@@ -41,6 +64,7 @@ public class MyLinkedList<T> implements ListInterface<T> {
 
 	@Override
 	public T first() {
+		if (this.isEmpty()) throw new NoSuchElementException();
 		return head.getNext().getItem();
 	}
 
@@ -57,13 +81,27 @@ public class MyLinkedList<T> implements ListInterface<T> {
 	@Override
 	public void removeAll() {
 		head.setNext(null);
+		numItems = 0;
+	}
+
+	public void remove(T item){
+		Node<T> current = head.getNext();
+		Node<T> prev = head;
+
+		while(current != null){
+			if(current.getItem().equals(item)){
+				prev.removeNext();
+				numItems--;
+				return;
+			}
+
+			prev = current;
+			current = current.getNext();
+		}
 	}
 }
 
-class MyLinkedListIterator<T> implements Iterator<T> {
-	// FIXME implement this
-	// Implement the iterator for MyLinkedList.
-	// You have to maintain the current position of the iterator.
+class MyLinkedListIterator<T extends Comparable<T>> implements Iterator<T> {
 	private MyLinkedList<T> list;
 	private Node<T> curr;
 	private Node<T> prev;
@@ -101,4 +139,5 @@ class MyLinkedListIterator<T> implements Iterator<T> {
 		curr = prev;
 		prev = null;
 	}
+
 }

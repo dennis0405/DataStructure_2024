@@ -1,0 +1,51 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# CSV 파일 로드
+df = pd.read_csv('sort_results.csv')
+
+# 각 정렬 알고리즘별로 데이터 분리
+algorithms = df['Fastest Sort'].unique()
+algorithm_dfs = {alg: df[df['Fastest Sort'] == alg] for alg in algorithms}
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.tree import plot_tree
+
+# 데이터 분할
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# 모델 생성 및 학습
+clf = DecisionTreeClassifier(max_depth=5)
+clf.fit(X_train, y_train)
+
+plt.figure(figsize=(60, 30), dpi=300)
+plot_tree(
+    clf,
+    feature_names=X.columns,
+    class_names=le.classes_,
+    filled=True,
+    fontsize=8,
+)
+plt.savefig('decision_tree.png')
+plt.show()
+
+files.download('decision_tree.png')
+
+from sklearn.metrics import accuracy_score
+
+# 간소화된 모델의 예측
+y_pred = clf.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+
+from sklearn.tree import export_text
+
+tree_rules = export_text(clf, feature_names=list(X.columns))
+with open('decision_tree.txt', 'w', encoding='utf-8') as f:
+    f.write(tree_rules)
+
+# 파일 다운로드
+#files.download('decision_tree.txt')
+

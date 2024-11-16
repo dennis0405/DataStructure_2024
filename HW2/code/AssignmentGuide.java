@@ -2,19 +2,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class AssignmentGuide {
-    /*
-     * This program tests the basic functionality of your MyLinkedList. You can start your assignment here.
-     * DISCLAIMER: Passing basic tests given here DOES NOT NECESSARILY GUARANTEES that your assignment is correct.
-     *
-     * When you run this program for the first time, it will print a lot of lines of error messages.
-     * DON'T PANIC and read those messages. They will provide you some hints in how to implement your assignment.
-     *
-     * Make this program print "All test passed!" instead of error messages.
-     *
-     */
+
     public static void main(String[] args) {
-        // You should skip the details of this testAssert method.
-        // Implementation of this method is provided at the bottom of this file.
+
         testAssert();
 
         try {
@@ -31,7 +21,6 @@ public class AssignmentGuide {
 	private static void testLinkedList() {
         ListInterface<String> l = new MyLinkedList<>();
 
-        // You should not modify these lines below to pass the tests.
         String item1 = "Data Structure";
         l.add(item1);
         assert l.size() == 1 : SIZE_FAILURE_MSG(l.size(), 1);;

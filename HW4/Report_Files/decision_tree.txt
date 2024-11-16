@@ -1,0 +1,100 @@
+|--- Array Length <= 410.50
+|   |--- Array Length <= 244.50
+|   |   |--- Array Length <= 1.50
+|   |   |   |--- Max Digits <= 2.50
+|   |   |   |   |--- Max Digits <= 1.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Max Digits >  1.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- Max Digits >  2.50
+|   |   |   |   |--- Max Digits <= 8.50
+|   |   |   |   |   |--- class: 0
+|   |   |   |   |--- Max Digits >  8.50
+|   |   |   |   |   |--- class: 0
+|   |   |--- Array Length >  1.50
+|   |   |   |--- Array Length <= 178.50
+|   |   |   |   |--- Array Length <= 4.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Array Length >  4.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- Array Length >  178.50
+|   |   |   |   |--- Presorted Rate <= 0.39
+|   |   |   |   |   |--- class: 3
+|   |   |   |   |--- Presorted Rate >  0.39
+|   |   |   |   |   |--- class: 1
+|   |--- Array Length >  244.50
+|   |   |--- Presorted Rate <= 0.60
+|   |   |   |--- Presorted Rate <= 0.45
+|   |   |   |   |--- Duplicate Rate <= 0.12
+|   |   |   |   |   |--- class: 3
+|   |   |   |   |--- Duplicate Rate >  0.12
+|   |   |   |   |   |--- class: 3
+|   |   |   |--- Presorted Rate >  0.45
+|   |   |   |   |--- Duplicate Rate <= 0.41
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Duplicate Rate >  0.41
+|   |   |   |   |   |--- class: 3
+|   |   |--- Presorted Rate >  0.60
+|   |   |   |--- Duplicate Rate <= 0.57
+|   |   |   |   |--- Presorted Rate <= 0.66
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Presorted Rate >  0.66
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- Duplicate Rate >  0.57
+|   |   |   |   |--- Presorted Rate <= 0.70
+|   |   |   |   |   |--- class: 3
+|   |   |   |   |--- Presorted Rate >  0.70
+|   |   |   |   |   |--- class: 1
+|--- Array Length >  410.50
+|   |--- Max Digits <= 4.50
+|   |   |--- Duplicate Rate <= 0.89
+|   |   |   |--- Array Length <= 14605.50
+|   |   |   |   |--- Max Digits <= 3.50
+|   |   |   |   |   |--- class: 4
+|   |   |   |   |--- Max Digits >  3.50
+|   |   |   |   |   |--- class: 3
+|   |   |   |--- Array Length >  14605.50
+|   |   |   |   |--- Array Length <= 19516.00
+|   |   |   |   |   |--- class: 4
+|   |   |   |   |--- Array Length >  19516.00
+|   |   |   |   |   |--- class: 4
+|   |   |--- Duplicate Rate >  0.89
+|   |   |   |--- Array Length <= 3046.50
+|   |   |   |   |--- Max Digits <= 2.50
+|   |   |   |   |   |--- class: 4
+|   |   |   |   |--- Max Digits >  2.50
+|   |   |   |   |   |--- class: 3
+|   |   |   |--- Array Length >  3046.50
+|   |   |   |   |--- Max Digits <= 3.50
+|   |   |   |   |   |--- class: 4
+|   |   |   |   |--- Max Digits >  3.50
+|   |   |   |   |   |--- class: 4
+|   |--- Max Digits >  4.50
+|   |   |--- Presorted Rate <= 0.99
+|   |   |   |--- Array Length <= 1109.50
+|   |   |   |   |--- Presorted Rate <= 0.75
+|   |   |   |   |   |--- class: 3
+|   |   |   |   |--- Presorted Rate >  0.75
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- Array Length >  1109.50
+|   |   |   |   |--- Max Digits <= 5.50
+|   |   |   |   |   |--- class: 3
+|   |   |   |   |--- Max Digits >  5.50
+|   |   |   |   |   |--- class: 3
+|   |   |--- Presorted Rate >  0.99
+|   |   |   |--- Duplicate Rate <= 0.99
+|   |   |   |   |--- Array Length <= 22379.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |   |--- Array Length >  22379.50
+|   |   |   |   |   |--- class: 1
+|   |   |   |--- Duplicate Rate >  0.99
+|   |   |   |   |--- Duplicate Rate <= 0.99
+|   |   |   |   |   |--- class: 2
+|   |   |   |   |--- Duplicate Rate >  0.99
+|   |   |   |   |   |--- class: 2
+
+class 0: H
+class 1: I
+class 2: M
+class 3: Q
+class 4: R
