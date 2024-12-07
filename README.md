@@ -4,5 +4,5 @@
 - 과제 2: Linked List Database
 - 과제 3: Stack Calculator
 - 과제 4: Sorting Algorithms
-- 과제 5:
-- 과제 6:
+- 과제 5: String Matcher
+- 과제 6: Shortest Path of Subway
