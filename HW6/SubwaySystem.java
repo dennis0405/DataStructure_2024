@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -11,12 +10,13 @@ public class SubwaySystem {
 
     private final Map<String, List<Edge>> graph;
     // id : 연결된 edge의 list 형태로 저장
+    // 인접 배열(리스트) 형태로 사용
 
     private final Map<String, Integer> transferTimes;
     // name : transfer time 형태로 저장
 
     private final Map<String, List<String>> stationNameToIds;
-    // name : 해당하는 모든 id의 list 형태로 저장
+    // name : 해당하는 모든 id의 list 형태로 저장 (역에 해당하는 모든 station id 정보)
 
     private int totalTravelTime;
     // 최단 경로에 해당하는 가중치 합
@@ -30,7 +30,7 @@ public class SubwaySystem {
     }
 
     public void loadData(String filename) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), StandardCharsets.UTF_8));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename)));
         String line;
 
         // station과 graph의 id 구성
@@ -48,7 +48,14 @@ public class SubwaySystem {
             Station station = new Station(id, name, lineNumber);
             stations.put(id, station);
             graph.put(id, new ArrayList<>());
-            stationNameToIds.computeIfAbsent(name, k -> new ArrayList<>()).add(id);
+
+            if (stationNameToIds.containsKey(name)) {
+                stationNameToIds.get(name).add(id);
+            } else {
+                ArrayList<String> ids = new ArrayList<>();
+                ids.add(id);
+                stationNameToIds.put(name, ids);
+            }
         }
 
         // edge 구성
@@ -73,12 +80,12 @@ public class SubwaySystem {
             if (line.isEmpty()) break;
 
             String[] tokens = SPACE_PATTERN.split(line, 2);
-            int transferTime;
 
             if (tokens.length != 2) continue;
+            // 시간이 적혀져 있지 않은 경우 (default 5) 뒤에서 처리
 
             String name = tokens[0];
-            transferTime = Integer.parseInt(tokens[1]);
+            int transferTime = Integer.parseInt(tokens[1]);
 
             transferTimes.put(name, transferTime);
         }
@@ -126,16 +133,16 @@ public class SubwaySystem {
         graph.put(startName, new ArrayList<>());
         // 여러 개의 출발지를 위한 superSource 구성
 
-        Map<String, Integer> dist = new HashMap<>();
-        for (String id : stations.keySet()) dist.put(id, Integer.MAX_VALUE);
-        dist.put(startName, 0);
-        // 모든 역 거리 무한대로 초기화
-
         for (String startId: startIds) {
             Edge edge = new Edge(startId, 0);
             graph.get(startName).add(edge);
         }
         // superSource와 실제 출빌지 연결 (가중치 0)
+
+        Map<String, Integer> dist = new HashMap<>();
+        for (String id : stations.keySet()) dist.put(id, Integer.MAX_VALUE);
+        dist.put(startName, 0);
+        // 모든 역 거리 무한대로 초기화
 
         // Dijkstra's algorithm
         while (!pq.isEmpty()) {
@@ -168,7 +175,7 @@ public class SubwaySystem {
 
     private List<String> reconstructPath(Map<String, String> prev, String endId, String startName) {
         LinkedList<String> path = new LinkedList<>();
-        String currentId = endId;
+        String currentId = endId; //종착점의 id
         String prevId = null;
 
         while (currentId != null) {

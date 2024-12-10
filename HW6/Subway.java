@@ -1,5 +1,4 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Subway {
@@ -10,9 +9,7 @@ public class Subway {
             return;
         }
 
-        Scanner scanner = new Scanner(new InputStreamReader(System.in, StandardCharsets.UTF_8));
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8), true);
-        PrintWriter err = new PrintWriter(new OutputStreamWriter(System.err, StandardCharsets.UTF_8), true);
+        Scanner scanner = new Scanner(System.in);
 
         String data = args[0];
         SubwaySystem subwaySystem = new SubwaySystem();
@@ -20,7 +17,8 @@ public class Subway {
         try {
             subwaySystem.loadData(data);
         } catch (IOException e) {
-            err.println("Error loading data: " + e.getMessage());
+            System.err.println("Error loading data: " + e.getMessage());
+            scanner.close();
             return;
         }
 
@@ -30,9 +28,9 @@ public class Subway {
                 break;
             }
 
-            String[] tokens = inputLine.split(" ");
+            String[] tokens = inputLine.split("\\s+");
             if (tokens.length != 2) {
-                err.println("Invalid input format. Please enter 'StartStation EndStation'");
+                System.err.println("Invalid input format. Please enter 'StartStation EndStation'");
                 continue;
             }
 
@@ -42,17 +40,17 @@ public class Subway {
             List<String> path = subwaySystem.findShortestPath(startStationName, endStationName);
             if (path != null) {
                 for (int i = 0; i < path.size(); i++) {
-                    out.print(path.get(i));
+                    System.out.print(path.get(i));
                     if (i < path.size() - 1) {
-                        out.print(" ");
+                        System.out.print(" ");
                     }
                 }
-                out.println();
+                System.out.println();
 
                 int totalTime = subwaySystem.getTotalTravelTime();
-                out.println(totalTime);
+                System.out.println(totalTime);
             } else {
-                out.println("No path found.");
+                System.out.println("No path found.");
             }
         }
 
